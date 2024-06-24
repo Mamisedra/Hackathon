@@ -2,7 +2,7 @@
 
 int main()
 {
-    int choix, fd;
+    int choix;
     
     printf("1-Biby\n2-Fomba malagasy\n");
     scanf("%d", &choix);
