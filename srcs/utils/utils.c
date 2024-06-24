@@ -7,8 +7,8 @@ void    biby()
     char *line, *val;
     char  valiny[250];
 
-    fd = open("../dic/biby.txt", O_RDONLY);
-    fd2 = open("../dic/valiny.txt", O_RDONLY);
+    fd = open("srcs/dic/biby.txt", O_RDONLY);
+    fd2 = open("srcs/dic/valiny.txt", O_RDONLY);
     printf("IZA ARY AHO?\n");
     while((line = get_next_line(fd)))
     {
