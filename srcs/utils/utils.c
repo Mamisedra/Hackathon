@@ -1,6 +1,6 @@
 #include "../../include/header.h"
 
-void    biby(FILE *fptr)
+void    biby()
 {
     int fd, fd2;
     int i = 1, k = 0;
