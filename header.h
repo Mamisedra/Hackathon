@@ -6,6 +6,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <unistd.h>
+#include <ctype.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 8
