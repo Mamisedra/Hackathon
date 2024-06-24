@@ -1,4 +1,4 @@
-#include "header.h"
+#include "../../include/header.h"
 
 void    biby(FILE *fptr)
 {
@@ -22,7 +22,7 @@ void    biby(FILE *fptr)
             if (strcmp(valiny, val) == 0)
             {
                 printf("Marina pr\n");
-                i++; 
+                i++;
             }
         }
 
