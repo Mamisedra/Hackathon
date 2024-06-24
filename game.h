@@ -8,24 +8,27 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
+#include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 # include <SDL2/SDL.h>
 # include <SDL2/SDL_render.h>
 
-typedef struct s_app
-{
-	SDL_Window		*window;
-	SDL_Renderer	*renderer;
-	int				win_width;
-	int				win_height;
-}				t_app;
+typedef struct {
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	TTF_Font *font;
+	SDL_Rect textFieldRect;
+	SDL_Rect submitButtonRect;
+	Mix_Chunk *sound[2];
+} SDL_Parameters;
 
-
-int		initSDL(t_app *app, const char *title, int width, int height);
-void	cleanupSDL(t_app *app);
-int		main(int argc, char* argv[]);
-void	mainLoop(t_app* app);
-void	renderLeftRegion(SDL_Renderer* renderer, int width, int height);
-
-void	renderRightRegion(SDL_Renderer* renderer, int width, int height);
+// Function prototypes
+int		sdl_init(SDL_Parameters *sdlParams);
+void	sound_play(Mix_Chunk *music);
+void	sdl_clean_up(SDL_Parameters *sdlParams);
+void	sdl_handle_input(SDL_Event *event, char *inputText, int *textLength, int *running, int *submitClicked, SDL_Parameters *sdlParams);
+void	sdl_render(SDL_Parameters *sdlParams, const char *inputText);
+void	sdl_loop(SDL_Parameters *sdlParams);
+void	sound_input(SDL_Parameters *sdlParams);
 
 #endif

@@ -1,105 +1,4 @@
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_mixer.h>
-#include <stdio.h>
-#include <string.h>
-
-// Structure to hold SDL parameters
-typedef struct {
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	TTF_Font *font;
-	SDL_Rect textFieldRect;
-	SDL_Rect submitButtonRect;
-	Mix_Chunk *sound;
-} SDL_Parameters;
-
-// Function prototypes
-int sdl_init(SDL_Parameters *sdlParams);
-void sdl_clean_up(SDL_Parameters *sdlParams);
-void sdl_handle_input(SDL_Event *event, char *inputText, int *textLength, int *running, int *submitClicked, SDL_Parameters *sdlParams);
-void sdl_render(SDL_Parameters *sdlParams, const char *inputText);
-void sdl_loop(SDL_Parameters *sdlParams);
-
-int main() {
-	SDL_Parameters sdlParams;
-	if (sdl_init(&sdlParams) != 0) {
-		return 1;
-	}
-
-	sdl_loop(&sdlParams);
-
-	sdl_clean_up(&sdlParams);
-
-	return 0;
-}
-
-int sdl_init(SDL_Parameters *sdlParams) {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) != 0) {
-		printf("Error initializing SDL: %s\n", SDL_GetError());
-		return 1;
-	}
-
-	if (TTF_Init() != 0) {
-		printf("Error initializing TTF: %s\n", TTF_GetError());
-		SDL_Quit();
-		return 1;
-	}
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
-		printf("Error initializing SDL_mixer: %s\n", Mix_GetError());
-		TTF_Quit();
-		SDL_Quit();
-		return 1;
-	}
-
-	sdlParams->window = SDL_CreateWindow("My SDL Window", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
-	if (sdlParams->window == NULL) {
-		printf("Error creating window: %s\n", SDL_GetError());
-		Mix_CloseAudio();
-		TTF_Quit();
-		SDL_Quit();
-		return 1;
-	}
-
-	sdlParams->renderer = SDL_CreateRenderer(sdlParams->window, -1, SDL_RENDERER_ACCELERATED);
-	if (sdlParams->renderer == NULL) {
-		printf("Error creating renderer: %s\n", SDL_GetError());
-		SDL_DestroyWindow(sdlParams->window);
-		Mix_CloseAudio();
-		TTF_Quit();
-		SDL_Quit();
-		return 1;
-	}
-
-	sdlParams->font = TTF_OpenFont("arial.ttf", 24);
-	if (sdlParams->font == NULL) {
-		printf("Error loading font: %s\n", TTF_GetError());
-		SDL_DestroyRenderer(sdlParams->renderer);
-		SDL_DestroyWindow(sdlParams->window);
-		Mix_CloseAudio();
-		SDL_Quit();
-		TTF_Quit();
-		return 1;
-	}
-
-	sdlParams->textFieldRect = (SDL_Rect){ 100, 100, 400, 50 };
-	sdlParams->submitButtonRect = (SDL_Rect){ 520, 100, 100, 50 };
-
-	SDL_StartTextInput();
-
-	return 0;
-}
-
-void sdl_clean_up(SDL_Parameters *sdlParams) {
-	SDL_StopTextInput();
-	TTF_CloseFont(sdlParams->font);
-	SDL_DestroyRenderer(sdlParams->renderer);
-	SDL_DestroyWindow(sdlParams->window);
-	Mix_CloseAudio();
-	SDL_Quit();
-	TTF_Quit();
-}
+#include "game.h"
 
 void sdl_handle_input(SDL_Event *event, char *inputText, int *textLength, int *running, int *submitClicked, SDL_Parameters *sdlParams) {
 	while (SDL_PollEvent(event)) {
@@ -137,7 +36,7 @@ void sdl_handle_input(SDL_Event *event, char *inputText, int *textLength, int *r
 
 
 void sdl_render(SDL_Parameters *sdlParams, const char *inputText) {
-	SDL_SetRenderDrawColor(sdlParams->renderer, 0, 0, 255, 255); // Blue background
+	SDL_SetRenderDrawColor(sdlParams->renderer, 63, 223, 169, 255); // Blue background
 	SDL_RenderClear(sdlParams->renderer);
 
 	SDL_Color textFieldColor = { 230, 230, 230 };
@@ -170,23 +69,3 @@ void sdl_render(SDL_Parameters *sdlParams, const char *inputText) {
 	SDL_RenderPresent(sdlParams->renderer);
 }
 
-void sdl_loop(SDL_Parameters *sdlParams) {
-	SDL_Event event;
-	char inputText[256] = "";
-	int textLength = 0;
-	int running = 1;
-	int submitClicked = 0;
-
-	while (running) {
-		sdl_handle_input(&event, inputText, &textLength, &running, &submitClicked, sdlParams);
-		sdl_render(sdlParams, inputText);
-
-		if (submitClicked) {
-			char *text = inputText;
-			if (strcmp(text, "ondry") == 0)
-				printf("%s dia valiny marina\n", text);
-			printf("Submitted Text: %s\n", inputText);
-			submitClicked = 0; // Reset the submit flag
-		}
-	}
-}
