@@ -12,10 +12,27 @@
 #  define BUFFER_SIZE 8
 # endif
 
+typedef struct
+{
+    char *q;
+} question;
+
+typedef struct
+{
+    question *q;
+    char    *answer;
+} questab;
+
+typedef struct
+{
+    questab *ques;
+} t_sub;
+
 size_t	ft_strlen(const char *s);
 char	*get_next_line(int fd);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *s, int c);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 void    biby();
+
 #endif
