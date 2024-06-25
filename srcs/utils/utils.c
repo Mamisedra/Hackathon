@@ -4,7 +4,8 @@
 void    biby(int *fd)
 {
     int i = 0, j = 0, l = 1;
-    //int pts = 0;
+    int pts = 0,cpt =0;
+    int maxpts = 50;
     char *line;
     char  str[250];
     t_sub   sub;
@@ -27,12 +28,10 @@ void    biby(int *fd)
             }
         }
         line += 2;
-        // printf("Line:%s\n", line);
         sub.ques[i].q[j].q = strdup(line);
         if(sub.ques[i].q[j].q == NULL)
         {
             perror("Erreur farany");
-
         }
         if (j % 3 == 0 && j != 0)
         {
@@ -55,17 +54,21 @@ void    biby(int *fd)
         {
             printf("Izaho dia %s",sub.ques[i].q[j].q);
             scanf("%s", str);
+            cpt+=10;
             for(size_t k = 0; k < strlen(str); k++)
                 str[k] = tolower(str[k]);
             if (strncmp(str, sub.ques[i].answer, strlen(str)) == 0)
             {
                 printf("\x1b[32m""Marina ehhh!!\n""\x1b[0m");
                 l = 1;
+                pts += (maxpts - cpt );
+                printf("Points%d\n", pts);
+                cpt = 0;
                 break;
             }
             else
             {
-                printf("\x1b[31m""Disoo\n""\x1b[0m");
+                printf("\x1b[31m""Diso\n""\x1b[0m");
                 l = 0;
             }
         }
@@ -75,4 +78,5 @@ void    biby(int *fd)
             break;
         }
     }
+    printf("\x1b[32m""Points finales: %d\n""\x1b[0m", pts);
 }
