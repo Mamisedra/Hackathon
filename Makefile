@@ -7,7 +7,7 @@ INCLUDE		= -I ./include
 SRCS		= $(shell find $(SRCS_PATH) -name "*.c")
 OBJS		= $(patsubst $(SRCS_PATH)/%.c,$(OBJS_PATH)/%.o,$(SRCS))
 CC			= gcc -Wall -Wextra -Werror -g
-SDL_FLAG	= -lSDL2 -lSDL2_ttf -lSDL2_mixer -I/usr/include/SDL2
+SDL_FLAG	= -lSDL2 -I/usr/include/SDL2
 
 $(OBJS_PATH)/%.o: $(SRCS_PATH)/%.c
 	$(MKDIR_P) $(dir $@)

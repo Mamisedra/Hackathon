@@ -19,15 +19,15 @@ int main()
             close(fd[1]);
         }
         break;
-    case 3:
-        {
-            fd[0] = open("srcs/dic/olona.txt", O_RDONLY);
-            fd[1] = open("srcs/dic/v_olo-malaza.txt", O_RDONLY);
-            biby(fd);
-            close(fd[0]);
-            close(fd[1]);
-        }
-        break;
+    // case 3:
+    //     {
+    //         fd[0] = open("srcs/dic/olona.txt", O_RDONLY);
+    //         fd[1] = open("srcs/dic/v_olo-malaza.txt", O_RDONLY);
+    //         biby(fd);
+    //         close(fd[0]);
+    //         close(fd[1]);
+    //     }
+    //     break;
     default:
         break;
     }
