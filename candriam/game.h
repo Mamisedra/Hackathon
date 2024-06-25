@@ -24,6 +24,12 @@ typedef struct {
     int textLength;     // Longueur du texte saisi
 } TextBox;
 
+typedef struct {
+    const char* description;
+    int selected;
+} GameOption;
+
+int showOptionsWindow(SDLApp* app, GameOption* options, int numOptions);
 void toLowerCase(char *str);
 int initSDL(SDLApp *app, const char *title, int width, int height);
 int main(int argc, char* argv[]);
