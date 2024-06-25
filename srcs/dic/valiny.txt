@@ -1,2 +1,5 @@
 1-sifaka
 2-ankoay
+3-fosa
+4-maki
+5-menarana
