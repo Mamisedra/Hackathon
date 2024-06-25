@@ -64,6 +64,7 @@ void    biby()
                 break;
             }
         }
-        
     }
+    close(fd);
+    close(fd2);
 }
