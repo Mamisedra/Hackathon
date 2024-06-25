@@ -19,13 +19,10 @@ typedef struct {
 } SDLApp;
 
 typedef struct {
-    const char *question;
-    const char *answer;
-    const char *hint;
-} Quiz;
-
-extern Quiz quizzes[];
-extern const int quizzesCount; 
+    SDL_Rect rect;      // Position et taille du textbox
+    char text[256];     // Texte saisi dans le textbox
+    int textLength;     // Longueur du texte saisi
+} TextBox;
 
 void toLowerCase(char *str);
 int initSDL(SDLApp *app, const char *title, int width, int height);
