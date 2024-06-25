@@ -59,7 +59,7 @@ int sdl_init(SDL_Parameters *sdlParams) {
 		return 1;
 	}
 	//taille et position
-	sdlParams->textFieldRect = (SDL_Rect){ 600, 200, 300, 100 };
+	sdlParams->textFieldRect = (SDL_Rect){ 1600, 1060, 300, 20 };
 	sdlParams->submitButtonRect = (SDL_Rect){ 520, 100, 100, 50 };
 	sound_input(sdlParams);
 	SDL_StartTextInput();
